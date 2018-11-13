@@ -1,16 +1,15 @@
 # tools
-some tools
 **加粗**
 *斜体*
 ~~中划线~~
-++下划线++
-==高亮==
-[title](link)
-`inline code`
-```code```
-！[image](https://ztstatictest.oss-cn-hangzhou.aliyuncs.com/chengxin_rz/15340560081069775062e2cc8f29ceaecbaf270005e6dad.png)
-*item1
-*item2
+++ 下划线 ++
+== 高亮 ==
+[title](http://www.baidu.com)  
+`inline code`  
+```code```  
+！[image](https://ztstatictest.oss-cn-hangzhou.aliyuncs.com/chengxin_rz/15340560081069775062e2cc8f29ceaecbaf270005e6dad.png)  
+* item1
+* item2
 > 引用
 
 # h1
