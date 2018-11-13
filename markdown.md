@@ -13,17 +13,19 @@ some tools
 *item2
 > 引用
 
-####水平线
-------
+# h1
+## h2
+### h3
+#### h4
+##### 换行符：一行结束时输入两个空格  
+###### 段落：段落之间空一行
 
-#h1
-##h2
-###h3
-####h4
-#####换行符：一行结束时输入两个空格  
-######段落：段落之间空一行
+### 分隔线
+***
+* * *
+*****
+- - -
+----------
 
-###分隔线  ***   * * *    *****     - - -       ----------  
-
-####参考链接： This is [an example] [1] reference-style link.
+#### 参考链接： This is [an example] [1] reference-style link.
   [1]: http://example.com/  "Optional Title Here"
