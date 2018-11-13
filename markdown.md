@@ -1,6 +1,14 @@
 # markdown
 **加粗** *斜体* ***斜体加粗*** ~~中划线~~
-[title](http://www.baidu.com) `inline code` ```code```  
+[title](http://www.baidu.com) `inline code`
+
+``` bash
+# 注释
+代码块。。。
+代码块。。。
+代码块。。。
+
+```
 
 ![image](https://ztstatictest.oss-cn-hangzhou.aliyuncs.com/chengxin_rz/15340560081069775062e2cc8f29ceaecbaf270005e6dad.png "logo")  
 * item1
