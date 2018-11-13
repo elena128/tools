@@ -79,20 +79,18 @@ export function setTime(t) {
  */
 export function countdown(d) {
   if (!isObject(d)) return false
-  const day = d.hasOwnProperty('d')
-  const hour = d.hasOwnProperty('h')
-  const minute = d.hasOwnProperty('m')
-  const second = d.hasOwnProperty('s')
-  if (!day && !hour && !minute && !second) return false
+  if (d === {}) return false
   const units = ['d', 'h', 'm', 's']
-  d = init(d, [day, hour, minute, second])
+  units.map(item => {
+    if (!d.hasOwnProperty(item)) d[item] = 0
+  })
   let tt = setInterval(() => {
-    timer(d, tt)
-    console.log(d)
-  }, 1000)
-  function timer(d, tt) {
     d.s--
     if (d.s <= 0 && d.m <= 0 && d.h <= 0 && d.d <= 0) clearInterval(tt)
+    d = timer(d)
+    console.log(d)
+  }, 1000)
+  function timer(d) {
     if (d.s < 0) {
       d.s = 59
       d.m--
@@ -105,12 +103,7 @@ export function countdown(d) {
       d.h = 23
       d.d--
     }
-  }
-  function init(data, icons) {
-    icons.map((item, key) => {
-      if (!item) data[units[key]] = 0
-    })
-    return data
+    return d
   }
 }
 

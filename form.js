@@ -17,10 +17,10 @@ export function validityForm(form, data) {
  * deps: check validate
  */
 export function checkOne(item, value) {
-  if (item.required && (item.isArray ? !(value && value.length) : !value)) {
-    return {error: 0, tips: item.title}
+  if (item.required && ((typeof value === 'object' && value.hasOwnProperty('length')) ? !(value && value.length) : !value)) {
+    return {error: 'null', tips: item.title}
   } else if (item.pattern && !check(validate[item.pattern].code, value)) {
-    return {error: 1, title: item.title, tips: validate[item.pattern].tips}
+    return {error: 'error', title: item.title, tips: validate[item.pattern].tips}
   }
 }
 
