@@ -22,7 +22,7 @@ export function isSameObject(o1, o2) {
  * 判断是否是数组
  */
 export function isArray(x) {
-  return typeof x === 'object' && x.hasOwnProperty('length')
+  return x && typeof x === 'object' && x.hasOwnProperty('length')
 }
 
 /**

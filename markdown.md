@@ -2,7 +2,7 @@
 **加粗** *斜体* ***斜体加粗*** ~~中划线~~
 [title](http://www.baidu.com) `inline code`
 
-``` bash
+``` Javascript
 # 注释
 代码块。。。
 代码块。。。
