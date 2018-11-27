@@ -2,7 +2,8 @@
  * 判断是否是对象
  */
 export function isObject(x) {
-  return Object.prototype.toString.call(x) === '[object Object]';
+  // IE8 will treat undefined and null as object if it wasn't for input != null
+  return input != null && Object.prototype.toString.call(x) === '[object Object]';
 }
 
 /**
@@ -19,10 +20,40 @@ export function isSameObject(o1, o2) {
 }
 
 /**
+ * 对象是否为空
+ */
+export function isObjectEmpty(obj) {
+  if (!obj) return null
+  if (Object.getOwnPropertyNames) {
+    return (Object.getOwnPropertyNames(obj).length === 0)
+  } else {
+    for (const k in obj) {
+      if (obj.hasOwnProperty(k)) {
+        return false
+      }
+    }
+    return true
+  }
+}
+
+
+/**
  * 判断是否是数组
  */
 export function isArray(x) {
-  return x && typeof x === 'object' && x.hasOwnProperty('length')
+  return x instanceof Array || Object.prototype.toString.call(x) === '[object Array]'
+}
+
+// 每个对象都具有一个名为__proto__的属性
+// 每个构造函数都具有一个名为prototype的方法
+export function _instanceof(A, B) {
+  const O = B.prototype
+  A = A.__proto__
+  while (true) {
+    if (A === null) return false
+    if (O === A) return true
+    A = A.__proto__
+  }
 }
 
 /**

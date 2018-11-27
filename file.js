@@ -94,6 +94,36 @@ export function compressImg(sourceImgObj, type) {
 }
 
 /**
+ * 获取图片尺寸
+ **/
+export function getImgWH(image, callback) {
+  if (typeof image === 'string') {
+    getImg(image).then(res => {
+      callback(res)
+    })
+  } else {
+    let a = new FileReader()
+    a.onload = function (e) {
+      getImg(e.target.result).then(res => {
+        callback(res)
+      })
+    }
+    a.readAsDataURL(image)
+  }
+}
+
+export function getImg(image) {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.onload = () => {
+      resolve({width: img.width, height: img.height})
+    }
+    img.src = image
+  })
+  
+}
+
+/**
  * 图片加载
  **/
 export function loadingFunc(imgs) {

@@ -201,58 +201,31 @@ export function check(pattern, value) {
 }
 
 /**
- * 联动
+ * 隐藏内容(12**45)
  */
-const data1 = {
-  'idA': { name: '一级A', data: { 'idA1': '二级A1', 'idA2': '二级A2', 'idA3': '二级A3', 'idA4': '二级A4' } },
-  'idB': { name: '一级B', data: { 'idB1': '二级B1', 'idB2': '二级B2', 'idB3': '二级B3', 'idB4': '二级B4' } },
-  'idC': { name: '一级C', data: { 'idC1': '二级C1', 'idC2': '二级C2', 'idC3': '二级C3', 'idC4': '二级C4' } },
-  'idD': { name: '一级D', data: { 'idD1': '二级D1', 'idD2': '二级D2', 'idD3': '二级D3', 'idD4': '二级D4' } }
-};
-const data2 = {
-  'idA1': { name: '二级A1', data: { 'idA11': '三级A11', 'idA12': '三级A12', 'idA13': '三级A13', 'idA14': '三级A14' } },
-  'idA2': { name: '二级A2', data: { 'idA21': '三级A21', 'idA22': '二级A22', 'idA23': '二级A23', 'idA24': '二级A24' } },
-  'idA3': { name: '二级A3', data: { 'idA31': '三级A31', 'idA32': '三级A32', 'idA33': '三级A33', 'idA34': '三级A34' } },
-  'idA4': { name: '二级A4', data: { 'idA41': '三级A41', 'idA42': '三级A42', 'idA43': '三级A42', 'idA44': '三级A42' } },
-  'idB1': { name: '二级B1', data: { 'idB11': '三级B11', 'idB12': '三级B12', 'idB13': '三级B13', 'idB14': '三级B14' } },
-  'idB2': { name: '二级B2', data: { 'idB21': '三级B21', 'idB22': '二级B22', 'idB23': '二级B23', 'idB24': '二级B24' } },
-  'idB3': { name: '二级B3', data: { 'idB31': '三级B31', 'idB32': '三级B32', 'idB33': '三级B33', 'idB34': '三级B34' } },
-  'idB4': { name: '二级B4', data: { 'idB41': '三级B41', 'idB42': '三级B42', 'idB43': '三级B43', 'idB44': '三级B44' } },
-  'idC1': { name: '二级C1', data: { 'idC11': '三级C11', 'idC12': '三级C12', 'idC13': '三级C13', 'idC14': '三级C14' } },
-  'idC2': { name: '二级C2', data: { 'idC21': '三级C21', 'idC22': '二级C22', 'idC23': '二级C23', 'idC24': '二级C24' } },
-  'idC3': { name: '二级C3', data: { 'idC31': '三级C31', 'idC32': '三级C32', 'idC33': '三级C33', 'idC34': '三级C34' } },
-  'idC4': { name: '二级C4', data: { 'idC41': '三级C41', 'idC42': '三级C42', 'idC43': '三级C43', 'idC44': '三级C44' } },
-  'idD1': { name: '二级D1', data: { 'idD11': '三级D11', 'idD12': '三级D12', 'idD13': '三级D13', 'idD14': '三级D14' } },
-  'idD2': { name: '二级D2', data: { 'idD21': '三级D21', 'idD22': '二级D22', 'idD23': '二级D23', 'idD24': '二级D24' } },
-  'idD3': { name: '二级D3', data: { 'idD31': '三级D31', 'idD32': '三级D32', 'idD33': '三级D33', 'idD34': '三级D34' } },
-  'idD4': { name: '二级D4', data: { 'idD41': '三级D41', 'idD42': '三级D42', 'idD43': '三级D43', 'idD44': '三级D44' } }
-};
-console.log(data1, data2)
-// var evalList = doT.template($("#list_template").text());
-// level({ele:".level",data1:data1,level1:"idB",level2:"idB2",func:evalList})
-export function linkage(ops) {
-  var data0 = {};
-  for (var i in ops.data1) {
-    data0[i] = ops.data1[i].name
-  }
-  var list1 = { val: ops.level1, data: data0 };
-  var list2 = { val: ops.level2, data: ops.data1[ops.level1 || Object.keys(list1.data)[0]].data };
-  $(ops.ele + "1").html(ops.func(list1));
-  $(ops.ele + "2").html(ops.func(list2));
-  $(ops.ele + "1").change(function () {
-    list2.data = ops.data1[$(this).val()].data;
-    $(ops.ele + "2").html(ops.func(list2));
-    if (ops.data2) {
-      list3.data = ops.data2[Object.keys(list2.data)[0]].data;
-      $(ops.ele + "3").html(ops.func(list3));
-    }
-  })
-  if (ops.data2) {
-    var list3 = { val: ops.level3, data: ops.data2[ops.level2 || Object.keys(list2.data)[0]].data };
-    $(ops.ele + "3").html(ops.func(list3));
-    $(ops.ele + "2").change(function () {
-      list3.data = ops.data2[$(this).val()].data;
-      $(ops.ele + "3").html(ops.func(list3));
-    })
-  }
+export function star (value) {
+  if (!value) return false
+  let str = value.toString()
+  const len = str.length
+  const rules = [{point: 6, end: 2}, {point: 9, start: 2, end: 2}, {point: 14, start: 3, end: 4}, {start: 4, end: 4, num: 8}]
+  const rule = rules.find((item, k) => (len > (k === 0 ? 0 : rules[k - 1].point)) && (len <= item.point || item.point === undefined))
+  const fixLen = len - ((rule.start || 0) + rule.end)
+  return (rule.start ? str.substr(0, rule.start) : '') + '*'.repeat(fixLen < 0 ? 0 : rule.num ? rule.num : fixLen) + str.substr(-rule.end)
+}
+
+/**
+ * 格式货币($125,646.000)
+ */
+export function currency (value, currency, decimals) {
+  value = parseFloat(value)
+  if (!isFinite(value) || (!value && value !== 0)) return ''
+  currency = currency != null ? currency : '$'
+  decimals = decimals != null ? decimals : 2
+  const stringified = Math.abs(value).toFixed(decimals)
+  const _int = decimals ? stringified.slice(0, -1 - decimals) : stringified
+  const i = _int.length % 3
+  const head = i > 0 ? (_int.slice(0, i) + (_int.length > 3 ? ',' : '')) : ''
+  const _float = decimals ? stringified.slice(-1 - decimals) : ''
+  const sign = value < 0 ? '-' : ''
+  return sign + currency + head + _int.slice(i).replace(/(\d{3})(?=\d)/g, '$1,') + _float
 }
