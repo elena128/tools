@@ -77,6 +77,8 @@ export function tobase64(file, callback) {
   reader.readAsDataURL(file)
 }
 
+// 转化为base64(ASCII)：btoa() atob() 非SCII：encodeURIComponent() decodeURIComponent()
+
 /**
  * 压缩图片
  **/

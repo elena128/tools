@@ -55,6 +55,8 @@ export function getVersions() {
     if (qq) return 4
   } else return 0
 }
+// var ua = navigator.userAgent.toLowerCase();
+// /mobi|android|touch|mini/i.test(ua)
 
 /**
  * 兼容各个浏览器的原生事件监听
@@ -78,6 +80,52 @@ export function removeEvent(el, type) {
   eType = window.addEventListener ? eType : 'on' + eType
   const eventFuc = window.removeEventListener ? 'removeEventListener' : 'detachEvent'
   el[eventFuc](eType, function() {})
+}
+
+export const EventUtil = {
+  addHandler: function (element, type, handler) {
+    if (element.addEventListener) {
+      element.addEventListener(type, handler, false);
+    } else if (element.attachEvent) {
+      element.attachEvent(on + type, handler);
+    } else {
+      element['on' + type] = handler;
+    }
+  },
+
+  getEvent: function (event) {
+    return event ? event : window.event;
+  },
+
+  getTarget: function (event) {
+    return event.target || event.srcElement;
+  },
+
+  preventDefault: function (event) {
+    if (event.preventDefault) {
+      event.preventDefault();
+    } else {
+      event.returnValue = false;
+    }
+  },
+
+  stopPropagation: function (event) {
+    if (event.stopPropagation) {
+      event.stopPropagation();
+    } else {
+      event.cancelBubble = true;
+    }
+  },
+
+  removeHandler: function (element, type, handler) {
+    if (element.removeEventListener) {
+      element.removeEventListener(type, handler, false);
+    } else if (element.detachEvent) {
+      element.detachEvent(on + type, handler);
+    } else {
+      element['on' + type] = null
+    }
+  }
 }
 
 /**
@@ -235,3 +283,172 @@ export function gethtml(data, template) {
 //http://api.map.baidu.com/geocoder?address=''&output=html
 // 获取电脑IP
 // http://pv.sohu.com/cityjson?ie=utf-8
+
+
+// 事件的本质是程序各个组成部分之间的一种通信方式，也是异步编程的体现。
+// 浏览器的事件模型就是通过监听函数对事件作出反应，事件发生后浏览器监听到了这个事件，就会执行对应的监听函数，这就是事件驱动编程模式
+
+// DOM 事件类型：鼠标事件 键盘事件 进度事件 表单事件 触摸事件 拖拽事件 资源事件(beforeunload, load) session历史事件 网页状态事件 窗口事件 剪贴板事件 焦点事件
+
+// Event————————————|——UIEvent——|——FocusEvent
+// EventTarget      |           |——MouseEvent---WheelEvent
+// EventListener    |           |——TextEvent
+// DocumentEvent    |           |——KeyboardEvent
+//                  |           |——CompositionEvent
+//                  |——CustomEvent
+//                  |——MutationEvent
+
+// ￣——__
+
+// Window document html body element 捕获、冒泡
+// 事件传播：捕获阶段 目标阶段 冒泡阶段
+// 事件，就是文档或浏览器窗口中发生的一些特定的交互瞬间，可以用侦听器来预定事件，以便事件发生时执行相应的代码
+// addEventListener removeEventListener
+
+
+export function triangle(n) {
+  let arr = []
+  for (let index = 0; index < n; index++) {
+    arr[index] = []
+    for (let k = 0; k < index + 1; k++) {
+      const n = k > 0 ? (arr[index][k - 1]+ arr[index - 1][k - 1]) : 1
+      arr[index].push(n)
+    }
+    console.log(arr[index].join(' '))
+  }
+}
+
+// 从输入url到出现页面涉及的主要流程或步骤有：
+// ①浏览器根据请求的URL，交给DNS域名解析，找到真实的ip。
+// ②服务器交给后端处理完成后返回的数据，浏览器接收文件HTML,CSS,JS图片等。
+// ③浏览器对加载的资源进行语法解析，建立相应的数据内部结构。
+// ④解析html，创建dom树，自上而下的顺序
+// ⑤解析css，优先级：浏览器默认设置<用户设置<外部样式<内联样式<HTML中的style样式；
+// ⑥将css与dom合并，构建渲染树
+// ⑦布局重绘重排，页面完成渲染。
+
+
+var xhr = new XMlHttpRequest()
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === 4) {
+    if (xhr.status === 200) {
+      console.log(xhr.responseText)
+    } else {
+      console.error(xhr.statusText)
+    }
+  }
+}
+
+xhr.onerror = function() {
+  console.error(xhr.statusText)
+}
+xhr.open('GET', '/request', true)
+xhr.send(null)
+
+// 跨域解决：jsonp(get), WebSocket, CORS(Cross-Origin Resource Sharing)
+
+// History: back, forward, go, pushState, replaceState
+// Location: href, protocol, host, hostname, port, pathname, search, hash, username, password, origin assign, replace, reload
+// URL的编码和解码：encodeURI, encodeURIComponent, decodeURI, decodeURIComponent
+// URL methods: createObjectURI, revokeObjectURI, searchParams
+
+// const url = new URL(location.href);
+// url.searchParams.get('type')
+
+// URLSearchParams: append, delete, has, set, get, getAll, sort, keys, values, entires
+
+// Blob对象表示一个二进制文件的数据内容，比如一个图片的内容就可以通过Blob对象读写。它通常用来读写文件，它的名字是Binary Large Object（二进制大型对象）的缩写。它与ArrayBuffer的区别在于，它用于操作二进制文件， 而ArrayBuffer用于操作内存。
+// 取得Blob对象后可以通过FileReader对象读取Blob对象的内容，即文件内容
+// FileReader: readAsText, readAsArrayBuffer, readAsDataURL, readAsBinaryString
+
+// File对象代表一个文件，用来读取文件信息，它继承了Blob对象，或者说是一种特殊的Blob对象，所有可以使用Blob对象的场合都可以使用它
+
+// formData: get, getAll, set, delete, append, has, keys, values, entries
+
+// 构造函数: 内部的this代表新生成的实例对象
+// new命令的作用就是执行构造函数，返回一个实例 无构造函数时，创建实例对象 Object.create(obj)
+// new原理：
+// 1.创建一个空对象，作为讲要返回的对象实例 2.将这个空对象的原型指向构造函数的prototype属性
+// 3.将这个空对象赋值给函数内部的this关键字 4.开始执行构造函数内部代码
+
+// this: 总是返回一个对象，它就是属性或方法"当前"所在的对象
+
+// 单线程、异步、非阻塞、解释性
+
+// javascript单线程指的是浏览器中负责解释和执行javascript代码的只有一个线程，即为js引擎线程，但浏览器的渲染进程是提供多个线程的，如：js引擎线程，事件触发线程，定时触发器线程，异步http请求线程，GUI渲染线程
+// 事件循环(event loop)与消息队列, 事件循环机制和消息队列的维护是由事件触发线程控制的
+// 消息队列和执行栈
+// 宏任务执行完，立即执行当前微任务队列中的微任务
+
+
+// options split-panel multiple show-week-numbers start-date confirm open size disabled clearable readonly editable transfer
+
+// options: shortcuts disabledDate
+
+// on-change on-open-change on-ok on-clear
+
+
+// 跑马灯
+function checkScrollLeft(){
+  if (boxWidth > textWidth) return false
+  content.innerHTML += content.innerHTML
+  document.querySelector('.text').classList.add('padding')
+  textWidth = document.querySelector('.text').offsetWidth
+  toScrollLeft()
+}
+
+function toScrollLeft(){
+  if (textWidth > box.scrollLeft) {
+    box.scrollLeft++
+  } else {
+    box.scrollLeft = 0
+  }
+  setTimeout('toScrollLeft()', 18);
+}
+checkScrollLeft()
+
+// npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+/**
+ * 防抖
+ * 
+ * @param {function} fn 
+ */
+function debounce(fn) {
+  let timeout = null; // 创建一个标记用来存放定时器的返回值
+  return function () {
+    clearTimeout(timeout); // 每当用户输入的时候把前一个 setTimeout clear 掉
+    timeout = setTimeout(() => { // 然后又创建一个新的 setTimeout, 这样就能保证输入字符后的 interval 间隔内如果还有字符输入的话，就不会执行 fn 函数
+      fn.apply(this, arguments);
+    }, 500);
+  };
+}
+function sayHi() {
+  console.log('防抖成功');
+}
+
+var inp = document.getElementById('inp');
+inp.addEventListener('input', debounce(sayHi)); // 防抖
+
+
+/**
+ * 节流
+ * 
+ * @param {function} fn 
+ */
+function throttle(fn) {
+  let canRun = true; // 通过闭包保存一个标记
+  return function () {
+    if (!canRun) return; // 在函数开头判断标记是否为 true，不为 true 则 return
+    canRun = false; // 立即设置为 false
+    setTimeout(() => { // 将外部传入的函数的执行放在 setTimeout 中
+      fn.apply(this, arguments);
+      // 最后在 setTimeout 执行完毕后再把标记设置为 true(关键) 表示可以执行下一次循环了。当定时器没有执行的时候标记永远是 false，在开头被 return 掉
+      canRun = true;
+    }, 500);
+  };
+}
+function sayHi(e) {
+  console.log(e.target.innerWidth, e.target.innerHeight);
+}
+window.addEventListener('resize', throttle(sayHi));

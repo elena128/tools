@@ -2,8 +2,10 @@
  * 判断是否是对象
  */
 export function isObject(x) {
-  // IE8 will treat undefined and null as object if it wasn't for input != null
-  return input != null && Object.prototype.toString.call(x) === '[object Object]';
+  // IE8 will treat undefined and null as object if it wasn't for x != null
+  return x != null && Object.prototype.toString.call(x) === '[object Object]';
+  // return x instanceof Object
+  // return x === Object(x)
 }
 
 /**
@@ -42,7 +44,21 @@ export function isObjectEmpty(obj) {
  */
 export function isArray(x) {
   return x instanceof Array || Object.prototype.toString.call(x) === '[object Array]'
+  // return x instanceof Array
+  // return Array.isArray(x)
 }
+
+// Array: push(add), pop(delete), shift(delete), unshiift(add), join(transfer), concat, reverse, slice(select将类数组->数组), splice(delete), sort, map, forEach, filter, some, every, reduce, reduceRight, indexOf, lastIndexOf
+
+// String: chatAt, chatCodeAt, concat, slice, substring, substr, indexOf, lastIndexOf, trim, toLowerCase, toUpperCase, match, search, repalce, split
+
+// Number: toFixed, toExponential, toPrecision
+
+// Math: E, LN2, LN10, LOG2E, LOG2E, LOG10E, PI, SQRT1_2, SQRT2, abs, ceil, floor, max, min, pow, sqrt, log, exp, round, random
+
+// Date: now, parse, toLocaleString, toLocaleDateString, toLocaleTimeString, getTime, getDate, getDay, getFullYear, getMonth, getHours, getMinutes, getSeconds
+
+// 原生包装对象: Number, String, Boolean
 
 // 每个对象都具有一个名为__proto__的属性
 // 每个构造函数都具有一个名为prototype的方法
@@ -92,3 +108,5 @@ export function str2Obj(str) {
   })
   return obj
 }
+
+// 浮点数不是精确的值

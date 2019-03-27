@@ -31,3 +31,4 @@ canvas = {
   others: 'save, restore, createEvent, getContext'
 }
 
+// 画圆弧形百分比：div+css:clip、div+css3:clip-path、svg、canvas

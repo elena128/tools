@@ -72,6 +72,24 @@ export function setTime(t) {
   }, 1000)
 }
 
+export function countDwon() {
+  let time = 0
+  function dec(t) {
+    time = t
+    if (time > 0) time--
+    return time
+  }
+  return dec
+}
+
+let dec = countDwon()
+let t = 5
+let tt = setInterval(() => {
+  t = dec(t)
+  if (t <= 0) clearInterval(tt)
+  console.log(t)
+}, 500)
+
 /**
  * 完整倒计时
  * @d {object}
@@ -124,15 +142,16 @@ export function getTimeDiff(startDate, endDate) {
   return { d: days, h: hours, m: minutes, s: seconds }
 }
 
-/**
- * 日期是否相等
- */
-export function isSame(y, m, d) {
-  if (isDate(y)) {
-    var dt = y;
-    y = dt.getFullYear();
-    m = dt.getMonth() + 1;
-    d = dt.getDate();
-  }
-  return this.getFullYear() === y && this.getMonth() + 1 === m && this.getDate() === d;
+export function getWeekOfYear(d){
+  var today = new Date(d);
+  var firstDay = new Date(today.getFullYear(), 0, 1);
+  var dayOfWeek = firstDay.getDay();
+  var spendDay = dayOfWeek !== 0 ? (8 - dayOfWeek) : 1
+  firstDay = new Date(today.getFullYear(), 0, spendDay);
+  var d = Math.ceil((today.valueOf() - firstDay.valueOf()) / 86400000);
+  var result = Math.ceil(d / 7);
+  return dayOfWeek === 0 ? (result === 0 ? 1 : result) : (result + 1);
 }
+
+requestAnimationFrame()
+cancelAnimationFrame()
